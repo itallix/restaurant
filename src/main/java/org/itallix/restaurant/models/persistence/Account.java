@@ -1,8 +1,5 @@
 package org.itallix.restaurant.models.persistence;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import org.itallix.restaurant.view.View;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,17 +9,14 @@ public class Account implements Serializable {
 
     @Id
     @GeneratedValue
-    @JsonView(View.AccountView.class)
     private int id;
 
-    @JsonView(View.AccountView.class)
     @Column(name = "login", nullable = false)
     private String login;
 
     @Column(name = "password", nullable = false)
     private String passwordHash;
 
-    @JsonView(View.AccountView.class)
     @Column(name = "role", nullable = false)
     private String role;
 
