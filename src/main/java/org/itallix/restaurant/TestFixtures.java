@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 
-/**
- * Created by greg.
- */
 @Component
 public class TestFixtures {
 

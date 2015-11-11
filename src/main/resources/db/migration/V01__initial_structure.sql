@@ -2,7 +2,7 @@ CREATE SEQUENCE hibernate_sequence START 1;
 
 CREATE TABLE account (
   id       INT          NOT NULL,
-  login    VARCHAR(16)  NOT NULL,
+  login    VARCHAR(16)  NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role     VARCHAR(16)  NOT NULL,
   CONSTRAINT account_pkey PRIMARY KEY (id)

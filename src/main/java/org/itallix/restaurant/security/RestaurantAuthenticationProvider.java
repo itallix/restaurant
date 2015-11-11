@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,6 +44,7 @@ public class RestaurantAuthenticationProvider implements AuthenticationProvider 
             throw new BadCredentialsException("wrong password");
         }
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(rightAccount.getRole()));
         UserDetails user = new User(rightAccount.getLogin(), "", Collections.unmodifiableCollection(authorities));
         return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
     }

@@ -1,5 +1,6 @@
 package org.itallix.restaurant.security;
 
+import org.itallix.restaurant.models.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
@@ -58,8 +60,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 return Optional.empty();
             }
             String name = authentication.getName();
+            String role = authentication.getAuthorities().stream().findFirst().get().getAuthority();
+            User user = new User(name, role);
             try {
-                return Optional.of(name);
+                return Optional.of(user);
             } catch (NumberFormatException e) {
                 return Optional.empty();
             }

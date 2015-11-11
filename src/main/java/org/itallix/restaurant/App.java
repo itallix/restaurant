@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.itallix.restaurant.models.persistence")
-@EnableJpaRepositories(basePackages = "com.itallix.restaurant.dao")
+@EntityScan(basePackages = "org.itallix.restaurant.models.persistence")
+@EnableJpaRepositories(basePackages = "org.itallix.restaurant.dao.repository")
 @Import({
         WebSecurityConfig.class
 })
