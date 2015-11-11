@@ -28,29 +28,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers(
-                        "/favicon.ico",
-                        "/index.html",
-                        "/debug.html",
-                        "/auth/**/*",
-                        "/debug/**/*",
-                        "/css/**/*",
-                        "/js/**/*",
-                        "/img/**/*",
-                        "/")
+                .antMatchers("/auth/**/*")
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
                 .logout().and()
-//                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().disable();
     }
-
-//    private CsrfTokenRepository csrfTokenRepository() {
-//        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-//        repository.setHeaderName("X-XSRF-TOKEN");
-//        return repository;
-//    }
 
     @Bean
     public CurrentUser currentUserIdContext() {
@@ -61,12 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             }
             String name = authentication.getName();
             String role = authentication.getAuthorities().stream().findFirst().get().getAuthority();
-            User user = new User(name, role);
-            try {
-                return Optional.of(user);
-            } catch (NumberFormatException e) {
+            if (name == null) {
                 return Optional.empty();
             }
+            return Optional.of(new User(name, role));
         };
     }
 
